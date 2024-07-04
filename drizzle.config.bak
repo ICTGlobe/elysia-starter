@@ -1,0 +1,9 @@
+{
+    "dialect": "sqlite",
+    "driver": "libsql",
+    "dbCredentials": {
+      "url": "file:./db.sqlite"
+    },
+    "schema": "./src/drizzle/schema",
+    "out": "./src/drizzle/migrations"
+}

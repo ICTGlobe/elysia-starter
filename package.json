@@ -5,9 +5,10 @@
     "start": "bun run src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --hot src/index.ts",
-    "db:generate": "drizzle-kit generate:sqlite",
-    "db:migrate": "bun run ./src/drizzle/migrate.ts",
-    "db:seed": "bun run ./src/drizzle/seed.ts"
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit push",
+    "db:seed": "bun run ./src/drizzle/seed.ts",
+    "studio": "bun run drizzle-kit studio"
   },
   "dependencies": {
     "@bogeychan/elysia-logger": "^0.0.21",
@@ -20,7 +21,7 @@
     "@sentry/bun": "^8.0.0",
     "@yolk-oss/elysia-env": "^1.0.2",
     "argon2": "^0.40.1",
-    "drizzle-orm": "^0.29.4",
+    "drizzle-orm": "^0.31.2",
     "elysia": "latest",
     "elysia-helmet": "^1.0.2",
     "jsonwebtoken": "^9.0.2",
@@ -31,7 +32,7 @@
     "@flydotio/dockerfile": "latest",
     "@types/jsonwebtoken": "^9.0.5",
     "bun-types": "latest",
-    "drizzle-kit": "^0.20.14"
+    "drizzle-kit": "^0.22.8"
   },
   "module": "src/index.js"
 }

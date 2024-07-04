@@ -1,8 +1,6 @@
 {
-  "version": "5",
+  "version": "6",
   "dialect": "sqlite",
-  "id": "61e8a93c-83ca-4913-baf7-f80138095e05",
-  "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "password_resets": {
       "name": "password_resets",
@@ -57,15 +55,15 @@
         "password_resets_user_id_users_id_fk": {
           "name": "password_resets_user_id_users_id_fk",
           "tableFrom": "password_resets",
-          "tableTo": "users",
           "columnsFrom": [
             "user_id"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -124,28 +122,28 @@
         "team_users_team_id_teams_id_fk": {
           "name": "team_users_team_id_teams_id_fk",
           "tableFrom": "team_users",
-          "tableTo": "teams",
           "columnsFrom": [
             "team_id"
           ],
+          "tableTo": "teams",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "team_users_user_id_users_id_fk": {
           "name": "team_users_user_id_users_id_fk",
           "tableFrom": "team_users",
-          "tableTo": "users",
           "columnsFrom": [
             "user_id"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -213,15 +211,15 @@
         "teams_owner_id_users_id_fk": {
           "name": "teams_owner_id_users_id_fk",
           "tableFrom": "teams",
-          "tableTo": "users",
           "columnsFrom": [
             "owner_id"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -333,15 +331,15 @@
         "team_invitations_team_id_teams_id_fk": {
           "name": "team_invitations_team_id_teams_id_fk",
           "tableFrom": "team_invitations",
-          "tableTo": "teams",
           "columnsFrom": [
             "team_id"
           ],
+          "tableTo": "teams",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -350,8 +348,9 @@
   },
   "enums": {},
   "_meta": {
-    "schemas": {},
     "tables": {},
     "columns": {}
-  }
+  },
+  "id": "61e8a93c-83ca-4913-baf7-f80138095e05",
+  "prevId": "00000000-0000-0000-0000-000000000000"
 }

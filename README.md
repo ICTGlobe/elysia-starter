@@ -19,6 +19,11 @@ bun run dev
 ```
 
 ### Database Migrations
+Running Drizzle Studio:
+```bash
+bun run studio
+```
+
 Generating database migrations:
 ```bash
 bun run db:generate
