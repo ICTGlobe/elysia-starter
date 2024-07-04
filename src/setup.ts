@@ -17,10 +17,10 @@ export const setupLogging = (app: Elysia) =>
         ip: true,
         customLogFormat:
           "🪵 {now} {level} {duration} {method} {pathname} [{status}] {ip}",
-        // logFilter: {
-        //   level: ["ERROR", "WARNING"],
-        //   status: [500, 400],
-        // },
+        logFilter: {
+          level: ["ERROR", "WARNING"],
+          status: [500, 400],
+        },
       },
     })
   );
