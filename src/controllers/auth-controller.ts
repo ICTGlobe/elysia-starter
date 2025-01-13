@@ -74,7 +74,7 @@ export const authController = new Elysia({
       }
 
       try {
-        teamService.createTeam({
+        await teamService.createTeam({
           name: `${user.name}'s Team`,
           ownerId: user.id,
           isPrivate: true,
@@ -119,6 +119,5 @@ export const authController = new Elysia({
    * Logout the currently authenticated user
    */
   .post("/logout", async () => {
-    // TODO: save invalidated JWT token
     return { message: "Logged out" };
   });

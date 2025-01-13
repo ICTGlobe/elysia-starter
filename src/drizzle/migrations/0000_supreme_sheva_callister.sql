@@ -29,6 +29,7 @@ CREATE TABLE `teams` (
 	FOREIGN KEY (`owner_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
+CREATE INDEX `idx_teams_owner_id` ON `teams` (`owner_id`);--> statement-breakpoint
 CREATE TABLE `users` (
 	`id` text PRIMARY KEY NOT NULL,
 	`name` text NOT NULL,
@@ -47,5 +48,3 @@ CREATE TABLE `team_invitations` (
 	`updated_at` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	FOREIGN KEY (`team_id`) REFERENCES `teams`(`id`) ON UPDATE no action ON DELETE no action
 );
---> statement-breakpoint
-CREATE INDEX `idx_teams_owner_id` ON `teams` (`owner_id`);

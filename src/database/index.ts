@@ -1,5 +1,4 @@
 import * as systemSchema from "@/drizzle/schema";
-import * as userSchema from "@/drizzle/schema/users";
 
 import { createClient } from "@libsql/client";
 import { drizzle } from "drizzle-orm/libsql";

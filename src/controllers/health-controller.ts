@@ -49,7 +49,11 @@ export const healthController = new Elysia({
     "/db",
     async () => {
       const beforeQuery = performance.now();
-      await database.run(sql`select 1`).execute();
+      try {
+        await database.run(sql`select 1`).execute();
+      } catch (error) {
+        console.log(error);
+      }
       const afterQuery = performance.now();
 
       return {

@@ -11,7 +11,11 @@ export class RequestValidationError extends CustomError {
 
   serializeErrors() {
     return this.error.all.map((err) => {
-      return { field: err.path.replace(/^\//, ""), message: err.message };
+      if(err.summary !== undefined) {
+        return { field: err.path.replace(/^\//, ""), message: err.message };
+      }
+      
+      return { field: "", message: "Unknown Error" };
     });
   }
 }

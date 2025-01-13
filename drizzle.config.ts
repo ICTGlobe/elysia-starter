@@ -1,11 +1,11 @@
 import { defineConfig } from "drizzle-kit"
+
 export default defineConfig({
-    dialect: "sqlite", // "postgresql" | "mysql"
-    driver: "turso", // optional and used only if `aws-data-api`, `turso`, `d1-http`(WIP) or `expo` are used
+    dialect: "sqlite",
     dbCredentials: {
-        url: "file:./db.sqlite",
+        url: process.env.DATABASE_URL!,
     },
-  "schema": "./src/drizzle/schema",
-  "out": "./src/drizzle/migrations"
+  schema: "./src/drizzle/schema",
+  out: "./src/drizzle/migrations"
 })
 
