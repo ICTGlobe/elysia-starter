@@ -5,11 +5,9 @@ import { app } from "@/app";
 describe("basics", () => {
   it("displays a welcome message", async () => {
     const response = await app
-      .handle(new Request("http://localhost/api/v1"))
-      .then((res) => res.json());
+      .handle(new Request("http://localhost/"))
+      .then((res) => res.text());
 
-    expect(response).toEqual({
-      message: "ElysiaJS API Server",
-    });
+    expect(response).toEqual("ElysiaJS API");
   });
 });
