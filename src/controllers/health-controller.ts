@@ -5,6 +5,7 @@ import { humanFileSize } from "@/util";
 import { memoryResponse } from "@/responses/health/memory-response";
 import { memoryUsage } from "bun:jsc";
 import { sql } from "drizzle-orm";
+import os from 'os';
 
 export const healthController = new Elysia({
   prefix: "health",
@@ -17,6 +18,7 @@ export const healthController = new Elysia({
    */
   .get("/", async () => {
     return {
+      host: os.hostname(),
       status: "ok",
     };
   })
