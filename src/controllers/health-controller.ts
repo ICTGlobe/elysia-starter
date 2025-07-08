@@ -6,8 +6,6 @@ import { memoryResponse } from "@/responses/health/memory-response";
 import { memoryUsage } from "bun:jsc";
 import { sql } from "drizzle-orm";
 
-const instanceId = Math.random().toString(36).substring(7);
-
 export const healthController = new Elysia({
   prefix: "health",
   detail: {
@@ -19,7 +17,6 @@ export const healthController = new Elysia({
    */
   .get("/", async () => {
     return {
-      instance: instanceId,
       status: "ok",
     };
   })
@@ -42,7 +39,7 @@ export const healthController = new Elysia({
     },
     {
       response: memoryResponse,
-    }
+    },
   )
 
   /*
@@ -65,5 +62,5 @@ export const healthController = new Elysia({
     },
     {
       response: dbResponse,
-    }
+    },
   );

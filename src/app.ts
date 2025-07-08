@@ -8,7 +8,7 @@ export const app = new Elysia({ precompile: true })
   .use(corsPlugin)
   .use(logPlugin)
   .use(setupErrorHandler)
-  .get("/", () => process.env.APP_NAME)
+  .get("/", ({ redirect }) => redirect("/swagger"))
   .use(routes);
 
 export type App = typeof app;

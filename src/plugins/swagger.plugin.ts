@@ -21,8 +21,8 @@ export const swaggerPlugin = (app: Elysia) =>
           {
             url: "https://api.example.com", // TODO: Replace with your production URL
             description: "Production Server",
-          }
-        ]
+          },
+        ],
       },
-    })
+    }),
   );
