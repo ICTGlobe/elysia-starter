@@ -13,6 +13,16 @@ export const swaggerPlugin = (app: Elysia) =>
           description: "ElysiaJS API Documentation 🚀",
           version: "1.0.0",
         },
+        servers: [
+          {
+            url: "http://localhost:3000",
+            description: "Local Development Server",
+          },
+          {
+            url: "https://api.example.com", // TODO: Replace with your production URL
+            description: "Production Server",
+          }
+        ]
       },
     })
   );
