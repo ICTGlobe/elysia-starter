@@ -1,14 +1,12 @@
 import { BadRequestError } from "@/errors/bad-request-error";
 import { Elysia } from "elysia";
 import { Team } from "@/drizzle/schema/teams";
-import TeamService from "@/services/team-service";
+import { services } from "@/service";
 import { createTeamRequest } from "@/requests/teams/create-team-request";
 import { currentUser } from "@/middleware/current-user";
 import { deleteTeamRequest } from "@/requests/teams/delete-team-request";
 import { getTeamRequest } from "@/requests/teams/get-team-request";
 import { updateTeamRequest } from "@/requests/teams/update-team-request";
-
-const teamService = new TeamService();
 
 export const teamsController = new Elysia({
   prefix: "teams",
@@ -17,13 +15,14 @@ export const teamsController = new Elysia({
   },
 })
   .use(currentUser)
+  .use(services)
 
   /**
    * Get all teams
    *
    * @returns {Promise<Team[]>}
    */
-  .get("/", async ({ currentUser }): Promise<Team[]> => {
+  .get("/", async ({ currentUser, teamService }): Promise<Team[]> => {
     return await teamService.getAllUserTeams(currentUser.id);
   })
 
@@ -36,7 +35,7 @@ export const teamsController = new Elysia({
    */
   .get(
     "/:id",
-    async ({ currentUser, params: { id } }): Promise<Team> => {
+    async ({ currentUser, params: { id }, teamService }): Promise<Team> => {
       let team;
       
       try {
@@ -65,7 +64,7 @@ export const teamsController = new Elysia({
    */
   .post(
     "/",
-    async ({ body, currentUser }): Promise<Team> => {
+    async ({ body, currentUser, teamService }): Promise<Team> => {
       let team = await teamService.createTeam({
         ...body,
         ownerId: currentUser.id,
@@ -86,7 +85,7 @@ export const teamsController = new Elysia({
    */
   .put(
     "/:id",
-    async ({ currentUser, body, params: { id } }): Promise<Team> => {
+    async ({ currentUser, body, params: { id }, teamService }): Promise<Team> => {
       let team;
       
       try {
@@ -115,7 +114,7 @@ export const teamsController = new Elysia({
    */
   .delete(
     "/:id",
-    async ({ currentUser, params: { id } }) => {
+    async ({ currentUser, params: { id }, teamService }) => {
       let team;
       
       try {

@@ -2,6 +2,7 @@ import Elysia from "elysia";
 
 import { authController } from "@/controllers/auth-controller";
 import { healthController } from "@/controllers/health-controller";
+import { notesController } from "@/controllers/notes-controller";
 import { passwordController } from "@/controllers/password-controller";
 import { profileController } from "@/controllers/profile-controller";
 import { teamInvitationController } from "@/controllers/team-invitation-controller";
@@ -15,4 +16,5 @@ export const routes = new Elysia({ prefix: "api/v1", precompile: true })
   .use(usersController)
   .use(teamsController)
   .use(teamInvitationController)
-  .use(profileController);
+  .use(profileController)
+  .use(notesController);

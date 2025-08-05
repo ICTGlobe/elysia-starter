@@ -1,5 +1,6 @@
 import AuthService from "@/services/auth-service";
 import Elysia from "elysia";
+import NotesService from "@/services/notes-service";
 import { PasswordService } from "./services/password-service";
 import TeamInvitationService from "./services/team-invitation-service";
 import TeamService from "./services/team-service";
@@ -11,4 +12,5 @@ export const services = new Elysia({ name: "services" }).decorate({
   userService: new UserService(),
   teamService: new TeamService(),
   teamInvitationService: new TeamInvitationService(),
+  notesService: new NotesService(),
 });
