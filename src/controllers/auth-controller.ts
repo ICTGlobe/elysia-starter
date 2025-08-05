@@ -102,17 +102,15 @@ export const authController = new Elysia({
    * Refresh a user's JWT token
    */
   .use(currentUser)
-  .post("/refresh", async ({ log, authService, currentUser }) => {
+  .post("/refresh", async ({ authService, currentUser }) => {
     let refreshedToken = await authService.refreshJwtToken(currentUser.id);
 
-    if (!refreshedToken) {
-      log.debug("Failed to refresh token");
-      throw new BadRequestError("Unauthorized");
-    }
-
-    currentUser.token = refreshedToken;
-
-    return currentUser;
+    return {
+      id: currentUser.id,
+      name: currentUser.name,
+      email: currentUser.email,
+      token: refreshedToken,
+    };
   })
 
   /**

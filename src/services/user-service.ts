@@ -8,6 +8,10 @@ export default class UserService {
    * Get a user by id
    */
   async getUserById(id: string): Promise<User> {
+    if (!id) {
+      throw new Error("User ID is required");
+    }
+
     let user = await database
       .select()
       .from(users)
@@ -25,6 +29,10 @@ export default class UserService {
    * Get a user by email
    */
   async getUserByEmail(email: string): Promise<User> {
+    if (!email) {
+      throw new Error("Email is required");
+    }
+
     let user = await database
       .select()
       .from(users)
@@ -37,17 +45,37 @@ export default class UserService {
     }
 
     return user;
-  }
-
-  /**
+  }  /**
    * Update the given user
    */
   async updateUser(id: string, data: Partial<User>): Promise<User> {
-    return await database
+    // Handle null/undefined ID
+    if (!id) {
+      throw new Error("User ID is required");
+    }
+
+    // Handle empty update object
+    if (!data || Object.keys(data).length === 0) {
+      throw new Error("Update data is required");
+    }
+
+    // Automatically update the updatedAt timestamp
+    const updateData = {
+      ...data,
+      updatedAt: new Date().toISOString(),
+    };
+
+    const result = await database
       .update(users)
-      .set(data)
+      .set(updateData)
       .where(eq(users.id, id))
       .returning()
       .get();
+
+    if (!result) {
+      throw new Error("User not found");
+    }
+
+    return result;
   }
 }

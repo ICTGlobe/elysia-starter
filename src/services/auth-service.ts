@@ -14,6 +14,30 @@ export default class AuthService {
    * @returns {Promise<User>} The created user
    */
   async signup(user: NewUser): Promise<User> {
+    // Validate user data
+    if (!user) {
+      throw new Error("User data is required");
+    }
+
+    // Validate required fields
+    if (!user.email || user.email.trim() === "") {
+      throw new Error("Email is required");
+    }
+
+    if (!user.name || user.name.trim() === "") {
+      throw new Error("Name is required");
+    }
+
+    if (!user.password || user.password.trim() === "") {
+      throw new Error("Password is required");
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(user.email)) {
+      throw new Error("Invalid email format");
+    }
+
     let existing = await database
       .select({
         id: users.id,
@@ -35,6 +59,14 @@ export default class AuthService {
    * @param id - the user's id
    */
   async deleteUser(id: string): Promise<void> {
+    // Validate user ID
+    if (id === null || id === undefined) {
+      throw new Error("User ID is required");
+    }
+    if (id === "") {
+      throw new Error("User ID cannot be empty");
+    }
+
     await database.delete(users).where(eq(users.id, id)).execute();
   }
 
@@ -46,6 +78,14 @@ export default class AuthService {
    * @returns {Promise<string>} The refreshed token
    */
   async refreshJwtToken(id: string): Promise<string> {
+    // Validate user ID
+    if (id === null || id === undefined) {
+      throw new Error("User ID is required");
+    }
+    if (id === "" || id.trim() === "") {
+      throw new Error("User ID cannot be empty");
+    }
+
     let user = await database
       .select()
       .from(users)
@@ -68,6 +108,28 @@ export default class AuthService {
    * @returns {string} The JWT
    */
   generateUserJwt(user: User): string {
+    // Validate user data
+    if (!user) {
+      throw new Error("User data is required");
+    }
+    if (!user.id) {
+      throw new Error("User ID is required");
+    }
+    if (!user.email) {
+      throw new Error("User email is required");
+    }
+    if (!user.name) {
+      throw new Error("User name is required");
+    }
+
+    // Validate environment variables
+    if (!process.env.JWT_SECRET) {
+      throw new Error("JWT_SECRET environment variable is required");
+    }
+    if (!process.env.JWT_MAX_AGE) {
+      throw new Error("JWT_MAX_AGE environment variable is required");
+    }
+
     return jwt.sign(
       {
         id: user.id,

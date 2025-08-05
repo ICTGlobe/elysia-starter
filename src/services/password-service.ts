@@ -10,12 +10,20 @@ export class PasswordService {
    * Create a new password reset token
    */
   async generatePasswordResetToken(userId: string): Promise<PasswordReset> {
+    // Validate userId
+    if (userId === null || userId === undefined) {
+      throw new Error("User ID is required");
+    }
+    if (userId === "") {
+      throw new Error("User ID cannot be empty");
+    }
+
     return database
       .insert(passwordResets)
       .values({
         token: createId(),
         userId: userId,
-        expiresAt: moment().add(1, "h").format("y-mm-DD hh:mm:ss"),
+        expiresAt: moment().add(1, "h").format("YYYY-MM-DD HH:mm:ss"),
       })
       .returning()
       .get();
@@ -25,6 +33,14 @@ export class PasswordService {
    * Validate the provided token
    */
   async validatePasswordResetToken(token: string): Promise<PasswordReset> {
+    // Validate token input
+    if (token === null || token === undefined) {
+      throw new Error("Token is required");
+    }
+    if (token === "") {
+      throw new Error("Token cannot be empty");
+    }
+
     let existingToken = await database
       .select()
       .from(passwordResets)
@@ -36,7 +52,7 @@ export class PasswordService {
       throw new Error("Token not found");
     }
 
-    if (moment(existingToken.expiresAt).isAfter(moment())) {
+    if (moment(existingToken.expiresAt).isBefore(moment())) {
       throw new Error("Token expired");
     }
 
@@ -47,6 +63,14 @@ export class PasswordService {
    * Delete the token from the database
    */
   async deletePasswordResetToken(id: string): Promise<void> {
+    // Validate token ID
+    if (id === null || id === undefined) {
+      throw new Error("Token ID is required");
+    }
+    if (id === "") {
+      throw new Error("Token ID cannot be empty");
+    }
+
     await database
       .delete(passwordResets)
       .where(eq(passwordResets.id, id))

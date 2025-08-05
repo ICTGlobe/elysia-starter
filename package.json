@@ -4,6 +4,8 @@
   "scripts": {
     "start": "bun run src/index.ts",
     "test": "bun test",
+    "test:unit": "bun test tests/unit/",
+    "test:feature": "bun test tests/feature/",
     "dev": "bun run --hot src/index.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit push",

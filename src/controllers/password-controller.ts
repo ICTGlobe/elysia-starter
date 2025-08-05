@@ -52,6 +52,11 @@ export const passwordController = new Elysia({
           body.token
         );
 
+        // Security check: Ensure the token belongs to the user
+        if (token.userId !== user.id) {
+          throw new Error("Invalid token for this user");
+        }
+
         await userService.updateUser(user.id, {
           password: await argon2.hash(body.password),
         });

@@ -2,5 +2,6 @@ export interface AuthenticatedUser {
   id: string;
   name: string;
   email: string;
-  token: string;
+  iat: number; // JWT issued at timestamp
+  exp: number; // JWT expiration timestamp
 }

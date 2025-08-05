@@ -37,9 +37,11 @@ export const teamsController = new Elysia({
   .get(
     "/:id",
     async ({ currentUser, params: { id } }): Promise<Team> => {
-      let team = await teamService.getTeamById(id);
-
-      if (!team) {
+      let team;
+      
+      try {
+        team = await teamService.getTeamById(id);
+      } catch (error) {
         throw new BadRequestError("Team not found");
       }
 
@@ -85,8 +87,11 @@ export const teamsController = new Elysia({
   .put(
     "/:id",
     async ({ currentUser, body, params: { id } }): Promise<Team> => {
-      let team = await teamService.getTeamById(id);
-      if (!team) {
+      let team;
+      
+      try {
+        team = await teamService.getTeamById(id);
+      } catch (error) {
         throw new BadRequestError("Team not found");
       }
 
@@ -111,8 +116,11 @@ export const teamsController = new Elysia({
   .delete(
     "/:id",
     async ({ currentUser, params: { id } }) => {
-      let team = await teamService.getTeamById(id);
-      if (!team) {
+      let team;
+      
+      try {
+        team = await teamService.getTeamById(id);
+      } catch (error) {
         throw new BadRequestError("Team not found");
       }
 
