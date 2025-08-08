@@ -6,6 +6,7 @@ import { notesController } from "@/controllers/notes-controller";
 import { passwordController } from "@/controllers/password-controller";
 import { profileController } from "@/controllers/profile-controller";
 import { teamInvitationController } from "@/controllers/team-invitation-controller";
+import { teamStaffController } from "@/controllers/team-staff-controller";
 import { teamsController } from "@/controllers/team-controller";
 import { usersController } from "@/controllers/user-controller";
 
@@ -16,5 +17,6 @@ export const routes = new Elysia({ prefix: "api/v1", precompile: true })
   .use(usersController)
   .use(teamsController)
   .use(teamInvitationController)
+  .use(teamStaffController)
   .use(profileController)
   .use(notesController);

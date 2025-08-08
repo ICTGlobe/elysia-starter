@@ -24,11 +24,11 @@ bun install
 
 ## Testing
 
-This project includes comprehensive test coverage with **196 total tests**:
+This project includes comprehensive test coverage with **284 total tests**:
 
-- **Unit Tests** (106 tests): Located in `tests/unit/`
-- **Feature Tests** (80 tests): Located in `tests/feature/`
-- **Integration Tests** (10 tests): Included in various test suites
+- **Unit Tests** (175 tests): Located in `tests/unit/`
+- **Feature Tests** (109 tests): Located in `tests/feature/`
+- **Integration Tests** (0 tests): Included in various test suites
 
 ### Test Scripts
 
@@ -51,6 +51,7 @@ bun run test:feature
 - **User Controller**: 6 tests ✅
 - **Team Controller**: 21 tests ✅
 - **Team Invitation Controller**: 18 tests ✅
+- **Team Staff Management**: 12 tests ✅
 - **Profile Controller**: 14 tests ✅
 
 **Service Layer Unit Tests:**
@@ -58,9 +59,13 @@ bun run test:feature
 - **UserService**: 25 tests ✅
 - **TeamService**: 25 tests ✅
 - **TeamInvitationService**: 23 tests ✅
+- **TeamStaffService**: 19 tests ✅
 - **PasswordService**: 20 tests ✅
+- **NotesService**: 18 tests ✅
+- **Log Plugin**: 6 tests ✅
+- **Setup Functions**: 6 tests ✅
 
-**Current Status**: 194+ passing, 2 skipped (99% pass rate)
+**Current Status**: 282 passing, 2 skipped (99.3% pass rate)
 
 Key features tested:
 - Input validation and edge cases
