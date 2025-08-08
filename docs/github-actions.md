@@ -29,7 +29,23 @@ This project includes comprehensive GitHub Actions workflows for continuous inte
 - **Unit tests**: 175
 - **Feature tests**: 109
 
-### 2. Code Quality Workflow (`.github/workflows/code-quality.yml`)
+### 2. Test Suite Workflow (`.github/workflows/test.yml`)
+
+**Triggers:**
+- Push to `main`, `develop`, or `master` branches
+- Pull requests to `main`, `develop`, or `master` branches
+
+**What it does:**
+- Dedicated test runner with optimized performance
+- Sets up Bun runtime environment
+- Caches dependencies for faster builds
+- Installs project dependencies
+- Sets up environment variables for testing
+- Runs database migrations
+- Executes all tests with detailed statistics
+- Provides comprehensive test summary
+
+### 3. Code Quality Workflow (`.github/workflows/code-quality.yml`)
 
 **Triggers:**
 - Push to `main`, `develop`, or `master` branches

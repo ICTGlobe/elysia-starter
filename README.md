@@ -168,10 +168,12 @@ This project uses GitHub Actions for automated testing and code quality checks.
 
 - **CI**: Runs all tests, type checking, and security audits on every push and pull request
 - **Code Quality**: Performs additional code quality checks
+- **Test Suite**: Dedicated test runner with detailed statistics
 
 ### Status Badges
 ![CI](https://github.com/ICTGlobe/elysia-starter/workflows/CI/badge.svg)
 ![Code Quality](https://github.com/ICTGlobe/elysia-starter/workflows/Code%20Quality/badge.svg)
+![Test Suite](https://github.com/ICTGlobe/elysia-starter/workflows/Test%20Suite/badge.svg)
 
 
 For detailed information about the CI/CD setup, see [GitHub Actions Documentation](docs/github-actions.md).
