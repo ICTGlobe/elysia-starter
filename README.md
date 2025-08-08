@@ -31,7 +31,7 @@ curl -fsSL https://bun.sh/install | bash
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/ICTGlobe/elysia-starter.git
 cd elysia-starter
 
 # Install dependencies
@@ -170,13 +170,9 @@ This project uses GitHub Actions for automated testing and code quality checks.
 - **Code Quality**: Performs additional code quality checks
 
 ### Status Badges
+![CI](https://github.com/ICTGlobe/elysia-starter/workflows/CI/badge.svg)
+![Code Quality](https://github.com/ICTGlobe/elysia-starter/workflows/Code%20Quality/badge.svg)
 
-Add these badges to your repository:
-
-```markdown
-![CI](https://github.com/{username}/{repo}/workflows/CI/badge.svg)
-![Code Quality](https://github.com/{username}/{repo}/workflows/Code%20Quality/badge.svg)
-```
 
 For detailed information about the CI/CD setup, see [GitHub Actions Documentation](docs/github-actions.md).
 
@@ -221,7 +217,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 If you encounter any issues or have questions:
 
 1. Check the [documentation](docs/)
-2. Search existing [issues](../../issues)
+2. Search existing [issues](https://github.com/ICTGlobe/elysia-starter/issues)
 3. Create a new issue with detailed information
 
 ---
