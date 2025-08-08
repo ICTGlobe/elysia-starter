@@ -10,7 +10,12 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit push",
     "db:seed": "bun run ./src/drizzle/seed.ts",
-    "studio": "bun run drizzle-kit studio"
+    "studio": "bun run drizzle-kit studio",
+    "lint": "bun run --bun tsc --noEmit",
+    "type-check": "bun run --bun tsc --noEmit",
+    "format": "bun run --bun prettier --write .",
+    "format:check": "bun run --bun prettier --check .",
+    "audit": "bun audit"
   },
   "dependencies": {
     "@bogeychan/elysia-logger": "^0.1.7",

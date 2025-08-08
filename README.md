@@ -1,36 +1,119 @@
 # Elysia JS API Starter Template
 
-## Getting Started
+A modern, fast, and scalable API starter template built with [ElysiaJS](https://elysiajs.com/) and [Bun](https://bun.sh/). Features comprehensive authentication, team management, and robust testing.
 
-This project is setup using Bun and ElysiaJS, in order to run the project, you will have to install Bun.
+## 🚀 Features
+
+- **Fast & Modern**: Built with ElysiaJS and Bun for exceptional performance
+- **Type Safety**: Full TypeScript support with strict type checking
+- **Authentication**: JWT-based authentication with secure password hashing
+- **Team Management**: Complete team and staff management system
+- **Database**: SQLite with Drizzle ORM for type-safe database operations
+- **Testing**: 284 comprehensive tests with 99.3% pass rate
+- **API Documentation**: Auto-generated Swagger documentation
+- **CI/CD**: GitHub Actions for automated testing and deployment
+
+## 📋 Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- [Bun](https://bun.sh/) (JavaScript runtime)
+
+## 🛠️ Installation
+
+### 1. Install Bun
 
 ```bash
 curl -fsSL https://bun.sh/install | bash
 ```
 
-## Installation
-
-Setup env variables:
+### 2. Clone and Setup
 
 ```bash
+# Clone the repository
+git clone <your-repo-url>
+cd elysia-starter
+
+# Install dependencies
+bun install
+
+# Setup environment variables
 cp .env.example .env
 ```
 
-Install Dependencies:
+### 3. Configure Environment
+
+Edit the `.env` file with your configuration:
 
 ```bash
-bun install
+# Required: JWT secret for authentication
+JWT_SECRET=your-super-secret-jwt-key
+
+# Optional: JWT expiration time (default: 86400 seconds = 24 hours)
+JWT_MAX_AGE=86400
+
+# Database URL (default: SQLite file)
+DATABASE_URL=file:./database.db
 ```
 
-## Testing
+## 🗄️ Database Setup
+
+### Generate Migrations
+
+When you modify the database schema, generate new migrations:
+
+```bash
+bun run db:generate
+```
+
+### Run Migrations
+
+Apply database migrations:
+
+```bash
+bun run db:migrate
+```
+
+### Seed Database
+
+Populate the database with initial data:
+
+```bash
+bun run db:seed
+```
+
+### Database Studio
+
+Open Drizzle Studio to view and edit data:
+
+```bash
+bun run studio
+```
+
+## 🚀 Development
+
+### Start Development Server
+
+```bash
+bun run dev
+```
+
+The server will start with hot reloading enabled. Visit `http://localhost:3000` to see your API.
+
+### Production Build
+
+```bash
+bun run start
+```
+
+## 🧪 Testing
 
 This project includes comprehensive test coverage with **284 total tests**:
 
-- **Unit Tests** (175 tests): Located in `tests/unit/`
-- **Feature Tests** (109 tests): Located in `tests/feature/`
-- **Integration Tests** (0 tests): Included in various test suites
+- **Unit Tests** (175 tests): Service layer and utility functions
+- **Feature Tests** (109 tests): API endpoints and integration tests
 
-### Test Scripts
+### Run Tests
 
 ```bash
 # Run all tests
@@ -45,6 +128,7 @@ bun run test:feature
 
 ### Test Coverage Summary
 
+**API Controllers:**
 - **Health Controller**: 3 tests ✅
 - **Auth Controller**: 9 tests (7 pass, 2 skip) ✅
 - **Password Controller**: 7 tests ✅
@@ -54,7 +138,7 @@ bun run test:feature
 - **Team Staff Management**: 12 tests ✅
 - **Profile Controller**: 14 tests ✅
 
-**Service Layer Unit Tests:**
+**Service Layer:**
 - **AuthService**: 23 tests ✅
 - **UserService**: 25 tests ✅
 - **TeamService**: 25 tests ✅
@@ -67,44 +151,79 @@ bun run test:feature
 
 **Current Status**: 282 passing, 2 skipped (99.3% pass rate)
 
-Key features tested:
-- Input validation and edge cases
-- Authentication and authorization
-- Database operations and data integrity
-- Error handling and security
-- API endpoint functionality
-- Service layer business logic
+### What's Tested
 
-### Database Migrations
+- ✅ Input validation and edge cases
+- ✅ Authentication and authorization
+- ✅ Database operations and data integrity
+- ✅ Error handling and security
+- ✅ API endpoint functionality
+- ✅ Service layer business logic
 
-Generating database migrations:
+## 🔄 Continuous Integration
 
-```bash
-bun run db:generate
+This project uses GitHub Actions for automated testing and code quality checks.
+
+### Workflows
+
+- **CI**: Runs all tests, type checking, and security audits on every push and pull request
+- **Code Quality**: Performs additional code quality checks
+
+### Status Badges
+
+Add these badges to your repository:
+
+```markdown
+![CI](https://github.com/{username}/{repo}/workflows/CI/badge.svg)
+![Code Quality](https://github.com/{username}/{repo}/workflows/Code%20Quality/badge.svg)
 ```
 
-System database migrations:
+For detailed information about the CI/CD setup, see [GitHub Actions Documentation](docs/github-actions.md).
 
-```bash
-bun run db:migrate
+## 📚 API Documentation
+
+Once the server is running, visit `http://localhost:3000/swagger` to view the interactive API documentation.
+
+## 🏗️ Project Structure
+
+```
+src/
+├── controllers/          # API route handlers
+├── services/            # Business logic layer
+├── database/            # Database configuration
+├── drizzle/             # Database schema and migrations
+├── middleware/          # Custom middleware
+├── plugins/             # ElysiaJS plugins
+├── requests/            # Request validation schemas
+├── responses/           # Response type definitions
+├── errors/              # Custom error classes
+└── types/               # TypeScript type definitions
+
+tests/
+├── unit/                # Unit tests for services
+└── feature/             # Integration tests for API endpoints
 ```
 
-Running database seeders:
+## 🤝 Contributing
 
-```bash
-bun run db:seed
-```
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-### Local Development
+## 📄 License
 
-To start the development server run:
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-```bash
-bun run dev
-```
+## 🆘 Support
 
-Running Drizzle Studio:
+If you encounter any issues or have questions:
 
-```bash
-bun run studio
-```
+1. Check the [documentation](docs/)
+2. Search existing [issues](../../issues)
+3. Create a new issue with detailed information
+
+---
+
+**Built with ❤️ using [ElysiaJS](https://elysiajs.com/) and [Bun](https://bun.sh/)**
