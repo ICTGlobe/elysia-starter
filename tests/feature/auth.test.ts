@@ -289,7 +289,7 @@ describe("Auth endpoints", () => {
         })
       );
 
-      expect(response.status).toBe(400);
+      expect(response.status).toBe(401);
       
       const data = await response.json();
       expect(data).toHaveProperty("errors");
@@ -307,7 +307,7 @@ describe("Auth endpoints", () => {
         })
       );
 
-      expect(response.status).toBe(400);
+      expect(response.status).toBe(401);
       
       const data = await response.json();
       expect(data).toHaveProperty("errors");
