@@ -124,21 +124,7 @@ bun run make:job Example
 ```
 
 This will:
-- Create a new job class in `src/jobs/`
-- Register it in `src/queue/job-handlers.ts`
-- Enforce safe defaults (no overwrites, no duplicates)
 
----
-
-### Creating a job (CLI)
-
-Use the built‑in CLI to scaffold and register jobs:
-
-```bash
-bun run make:job Example
-```
-
-This will:
 - Create a new job class in `src/jobs/`
 - Register it in `src/queue/job-handlers.ts`
 - Enforce safe defaults (no overwrites, no duplicates)
@@ -154,6 +140,7 @@ bun run make:queue emails --concurrency 2 --rate 10:60000
 ```
 
 This will:
+
 - Add the queue to `queue-config.ts`
 - Register the queue in `queues.ts`
 - Configure concurrency and rate limiting
