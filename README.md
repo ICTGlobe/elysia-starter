@@ -4,6 +4,7 @@ A modern, fast, and scalable API starter template built with [ElysiaJS](https://
 
 ## 🚀 Features
 
+- **Background Jobs & Queues**: Redis‑backed job system with retries, delays, rate limiting, and dashboard
 - **Fast & Modern**: Built with ElysiaJS and Bun for exceptional performance
 - **Type Safety**: Full TypeScript support with strict type checking
 - **Authentication**: JWT-based authentication with secure password hashing
@@ -90,6 +91,50 @@ Open Drizzle Studio to view and edit data:
 bun run studio
 ```
 
+## 🧵 Background Jobs & Queues
+
+This project includes a background job system inspired by Laravel queues, built with **BullMQ + Redis**.
+
+### Key capabilities
+
+- Redis‑backed durable queues
+- Multiple queues (e.g. `default`, `emails`, `notifications`)
+- Configurable concurrency per queue
+- Per‑queue rate limiting
+- Retries with exponential backoff
+- Job execution timeouts
+- Delayed (scheduled) jobs
+- Graceful worker shutdown
+- Web dashboard for monitoring and retries
+
+### Running workers
+
+Start the background workers in a separate process:
+
+```bash
+bun run queue:work
+```
+
+### Dispatching a job
+
+```ts
+SendWelcomeEmail.dispatch({ userId });
+```
+
+### Dashboard
+
+When the API is running, visit:
+
+```
+/admin/queues
+```
+
+For full documentation, see:
+
+- `docs/queues-and-jobs.md`
+
+---
+
 ## 🚀 Development
 
 ### Start Development Server
@@ -129,6 +174,7 @@ bun run test:feature
 ### Test Coverage Summary
 
 **API Controllers:**
+
 - **Health Controller**: 3 tests ✅
 - **Auth Controller**: 9 tests (7 pass, 2 skip) ✅
 - **Password Controller**: 7 tests ✅
@@ -139,6 +185,7 @@ bun run test:feature
 - **Profile Controller**: 14 tests ✅
 
 **Service Layer:**
+
 - **AuthService**: 23 tests ✅
 - **UserService**: 25 tests ✅
 - **TeamService**: 25 tests ✅
@@ -171,10 +218,10 @@ This project uses GitHub Actions for automated testing and code quality checks.
 - **Test Suite**: Dedicated test runner with detailed statistics
 
 ### Status Badges
+
 ![CI](https://github.com/ICTGlobe/elysia-starter/workflows/CI/badge.svg)
 ![Code Quality](https://github.com/ICTGlobe/elysia-starter/workflows/Code%20Quality/badge.svg)
 ![Test Suite](https://github.com/ICTGlobe/elysia-starter/workflows/Test%20Suite/badge.svg)
-
 
 For detailed information about the CI/CD setup, see [GitHub Actions Documentation](docs/github-actions.md).
 

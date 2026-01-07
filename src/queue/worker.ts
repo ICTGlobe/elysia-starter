@@ -16,7 +16,7 @@ import { queueConfig } from './queue-config'
 
 const workers: Worker[] = []
 
-for (const { name, concurrency } of queueConfig) {
+for (const { name, concurrency, rateLimit } of queueConfig) {
   const worker = new Worker(
     name,
     async job => {
@@ -28,7 +28,16 @@ for (const { name, concurrency } of queueConfig) {
 
       await handlerFactory().handle(job.data)
     },
-    { connection, concurrency },
+    {
+      connection,
+      concurrency,
+      limiter: rateLimit
+        ? {
+            max: rateLimit.max,
+            duration: rateLimit.duration,
+          }
+        : undefined,
+    },
   )
 
   workers.push(worker)

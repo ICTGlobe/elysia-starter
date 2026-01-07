@@ -10,5 +10,9 @@ declare namespace NodeJS {
     TURSO_API_TOKEN: string;
     TURSO_GROUP_TOKEN: string;
     SENTRY_DSN: string;
+    QUEUE_DASHBOARD_ENABLED: string;
+    REDIS_HOST: string;
+    REDIS_PORT: string;
+    REDIS_PASSWORD: string;
   }
 }

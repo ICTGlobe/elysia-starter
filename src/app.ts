@@ -12,8 +12,8 @@ export const app = new Elysia({ precompile: true })
   .get("/", ({ redirect }) => redirect("/swagger"));
 
   // Register Bull Queue Dashboard
-  if (process.env.NODE_ENV !== 'production') {
-    app.use(createQueueDashboard());
+  if (process.env.QUEUE_DASHBOARD_ENABLED === 'true') {
+    app.use(createQueueDashboard())
   }
 
   // Register application routes
