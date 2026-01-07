@@ -14,8 +14,10 @@ const connection = {
 
 import { queueConfig } from './queue-config'
 
+const workers: Worker[] = []
+
 for (const { name, concurrency } of queueConfig) {
-  new Worker(
+  const worker = new Worker(
     name,
     async job => {
       const handlerFactory = jobHandlers[job.name]
@@ -29,6 +31,22 @@ for (const { name, concurrency } of queueConfig) {
     { connection, concurrency },
   )
 
+  workers.push(worker)
+
   console.log(`✅ Worker started for queue: ${name} (concurrency=${concurrency})`)
 }
+
+async function shutdown(signal: string) {
+  console.log(`\n⚠️  Received ${signal}. Shutting down workers...`)
+
+  await Promise.all(
+    workers.map(worker => worker.close()),
+  )
+
+  console.log('✅ All workers shut down gracefully')
+  process.exit(0)
+}
+
+process.on('SIGTERM', shutdown)
+process.on('SIGINT', shutdown)
 
