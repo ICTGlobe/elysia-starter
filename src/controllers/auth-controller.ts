@@ -11,6 +11,7 @@ import { signinRequest } from "@/requests/auth/signin-request";
 import { signinResponse } from "@/responses/auth/signin-response";
 import { signupRequest } from "@/requests/auth/signup-request";
 import { signupResponse } from "@/responses/auth/signup-response";
+import { SendWelcomeEmail } from "@/jobs/send-welcome-email";
 
 export const authController = new Elysia({
   prefix: "auth",
@@ -84,6 +85,8 @@ export const authController = new Elysia({
         await authService.deleteUser(user.id);
         throw new ServerError();
       }
+
+      SendWelcomeEmail.dispatch({ userId: user.id });
 
       return {
         id: user.id,
