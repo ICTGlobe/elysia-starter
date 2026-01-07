@@ -163,8 +163,9 @@ When the API is running, visit:
 
 For full documentation, see:
 
-- `docs/queues-and-jobs.md`
-- `docs/events.md`
+- [Queues & Jobs](docs/queues-and-jobs.md)
+- [Event System](docs/events.md)
+- [CLI Reference](docs/cli.md)
 
 ---
 
