@@ -512,6 +512,74 @@ This mirrors how Laravel Horizon and Sidekiq Web are typically deployed.
 
 ---
 
+## CLI Tools
+
+### make:job
+
+To streamline job creation and registration, the project includes a small CLI helper.
+
+### Creating a job
+
+```bash
+bun run make:job Example
+```
+
+This command will:
+
+- Create `src/jobs/example-job.ts`
+- Generate a minimal job class
+- Automatically register the job in `src/queue/job-handlers.ts`
+- Fail safely if the job already exists or is already registered
+
+### Naming rules
+
+- You may pass `Example` or `ExampleJob`
+- The generated class will always end in `Job`
+- The filename will be kebab‑case (`example-job.ts`)
+
+### Safety guarantees
+
+The CLI will **abort without making changes** if:
+
+- The job file already exists
+- The job is already registered in `job-handlers.ts`
+
+This prevents accidental overwrites and duplicate handlers.
+
+---
+
+### make:queue
+
+To scaffold and register new queues consistently, use the `make:queue` CLI command.
+
+#### Creating a queue
+
+```bash
+bun run make:queue emails --concurrency 2 --rate 10:60000
+```
+
+This command will:
+
+- Add the queue to `src/queue/queue-config.ts`
+- Register the queue in `src/queue/queues.ts`
+- Configure concurrency and optional rate limiting
+- Fail safely if the queue already exists
+
+#### Options
+
+- `--concurrency <number>` – Number of jobs processed in parallel (default: 1)
+- `--rate <max>:<durationMs>` – Rate limit for the queue (optional)
+- `-h, --help` – Show help and usage
+
+#### Naming rules
+
+- Queue names must be **kebab‑case**
+- Examples: `emails`, `notifications`, `webhooks`
+
+Queues become immediately available to workers after creation.
+
+---
+
 ## Quick Reference
 
 Start API:

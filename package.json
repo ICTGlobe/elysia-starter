@@ -16,7 +16,9 @@
     "format": "bun run --bun prettier --write .",
     "format:check": "bun run --bun prettier --check .",
     "audit": "bun audit",
-    "queue:work": "bun run src/queue/worker.ts"
+    "queue:work": "bun run src/queue/worker.ts",
+    "make:job": "bun run src/cli/job-create.ts",
+    "make:queue": "bun run src/cli/queue-create.ts"
   },
   "dependencies": {
     "@bogeychan/elysia-logger": "^0.1.10",
