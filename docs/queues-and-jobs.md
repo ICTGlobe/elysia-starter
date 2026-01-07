@@ -51,6 +51,35 @@ Dispatching the job:
 ExampleJob.dispatch({ message: 'Hello from the queue!' })
 ```
 
+### Registering the job
+
+After creating a job, it **must be registered** so that workers know how to execute it.
+
+Jobs are registered explicitly in:
+
+**`src/queue/job-handlers.ts`**
+
+Example:
+
+```ts
+import { ExampleJob } from '../jobs/example-job'
+
+export const jobHandlers = {
+  [ExampleJob.name]: () => new ExampleJob(),
+}
+```
+
+If a job is not registered:
+- It may be enqueued successfully
+- But workers will fail with `Unknown job` errors
+
+This explicit registration is intentional:
+- Avoids hidden magic
+- Makes job wiring obvious
+- Keeps worker behavior predictable
+
+---
+
 This job:
 - Uses the default queue
 - Inherits default retries, backoff, timeout, and delay
