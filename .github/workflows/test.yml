@@ -10,6 +10,17 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -37,7 +48,10 @@ jobs:
         cp .env.example .env
         echo "JWT_SECRET=test-secret-key-for-github-actions" >> .env
         echo "JWT_MAX_AGE=86400" >> .env
-        echo "DATABASE_URL=file:./test.db" >> .env
+         echo "DATABASE_URL=file:./test.db" >> .env
+         echo "REDIS_HOST=127.0.0.1" >> .env
+         echo "REDIS_PORT=6379" >> .env
+         echo "REDIS_PASSWORD=null" >> .env
 
     - name: Run database migrations
       run: bun run db:migrate
