@@ -164,6 +164,7 @@ When the API is running, visit:
 For full documentation, see:
 
 - `docs/queues-and-jobs.md`
+- `docs/events.md`
 
 ---
 

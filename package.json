@@ -18,7 +18,12 @@
     "audit": "bun audit",
     "queue:work": "bun run src/queue/worker.ts",
     "make:job": "bun run src/cli/job-create.ts",
-    "make:queue": "bun run src/cli/queue-create.ts"
+    "make:queue": "bun run src/cli/queue-create.ts",
+    "make:event": "bun run src/cli/event-create.ts",
+    "make:listener": "bun run src/cli/listener-create.ts",
+    "queue:clear": "bun run src/cli/queue-clear.ts",
+    "queue:list": "bun run src/cli/queue-list.ts",
+    "queue:stats": "bun run src/cli/queue-stats.ts"
   },
   "dependencies": {
     "@bogeychan/elysia-logger": "^0.1.10",

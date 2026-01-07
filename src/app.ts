@@ -3,6 +3,7 @@ import { setupErrorHandler } from "@/setup";
 import { corsPlugin, logPlugin, swaggerPlugin } from "@/plugins";
 import { routes } from "./routes";
 import { createQueueDashboard } from "./queue/dashboard";
+import '@/listeners'
 
 export const app = new Elysia({ precompile: true })  
   .use(swaggerPlugin)

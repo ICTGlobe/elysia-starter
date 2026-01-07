@@ -11,7 +11,8 @@ import { signinRequest } from "@/requests/auth/signin-request";
 import { signinResponse } from "@/responses/auth/signin-response";
 import { signupRequest } from "@/requests/auth/signup-request";
 import { signupResponse } from "@/responses/auth/signup-response";
-import { SendWelcomeEmail } from "@/jobs/send-welcome-email";
+import { emit } from '@/events/event-bus'
+import { UserRegistered } from '@/events/user-registered'
 
 export const authController = new Elysia({
   prefix: "auth",
@@ -86,7 +87,7 @@ export const authController = new Elysia({
         throw new ServerError();
       }
 
-      SendWelcomeEmail.dispatch({ userId: user.id });
+       emit(new UserRegistered(user.id))
 
       return {
         id: user.id,

@@ -512,6 +512,102 @@ This mirrors how Laravel Horizon and Sidekiq Web are typically deployed.
 
 ---
 
+## Scaffolding with the CLI
+
+The project provides first‑class CLI tools to scaffold **events**, **listeners**, **jobs**, and **queues**. These tools enforce conventions, prevent mistakes, and keep the architecture explicit.
+
+---
+
+### Creating an Event
+
+Use `make:event` to create a new domain event.
+
+```bash
+bun run make:event UserSubscribed
+```
+
+This will:
+- Create `src/events/user-subscribed.ts`
+- Generate a minimal event class
+- Fail safely if the file already exists
+
+Generated example:
+
+```ts
+export class UserSubscribed {
+  constructor() {}
+}
+```
+
+Events are simple data carriers and must not contain side effects.
+
+---
+
+### Creating a Listener
+
+Use `make:listener` to create a listener for an event.
+
+```bash
+bun run make:listener UserSubscribed ProcessSubscription
+```
+
+This will:
+- Create the event if it does not already exist
+- Create `src/listeners/process-subscription.ts`
+- Wire the listener to the event using the event bus
+- Automatically register the listener in `src/listeners/index.ts`
+
+Generated example:
+
+```ts
+import { on } from '../events/event-bus'
+import { UserSubscribed } from '../events/user-subscribed'
+
+on(UserSubscribed, event => {
+  //
+})
+```
+
+Listeners are intentionally generated with an empty handler so side effects are always explicit.
+
+---
+
+## Recommended Workflow
+
+When introducing new asynchronous behavior, follow this flow:
+
+1. **Create an event** – model the fact that something happened
+   ```bash
+   bun run make:event UserDeleted
+   ```
+
+2. **Emit the event** from a controller or service
+   ```ts
+   emit(new UserDeletedEvent(user.id))
+   ```
+
+3. **Create a listener** – decide how the system should react
+   ```bash
+   bun run make:listener UserDeleted
+   ```
+
+4. **Add side effects** inside the listener
+   - Dispatch one or more jobs
+   - Call services
+   - Notify external systems
+
+5. **Create jobs if needed** for heavy or retryable work
+   ```bash
+   bun run make:job CleanupUserData
+   ```
+
+This workflow keeps:
+- Controllers synchronous and thin
+- Events expressive and reusable
+- Side effects explicit and testable
+
+---
+
 ## CLI Tools
 
 ### make:job
@@ -577,6 +673,111 @@ This command will:
 - Examples: `emails`, `notifications`, `webhooks`
 
 Queues become immediately available to workers after creation.
+
+---
+
+### make:event
+
+Use this command to scaffold a new **class‑based domain event**.
+
+```bash
+bun run make:event UserRegistered
+```
+
+This command will:
+
+- Create a new event class in `src/events/`
+- Enforce the `*Event` naming convention
+- Use kebab‑case filenames
+- Fail safely if the event already exists
+
+Generated example:
+
+```ts
+export class UserRegisteredEvent {
+  constructor() {}
+}
+```
+
+Events are simple data containers and must not contain side effects.
+
+---
+
+### make:listener
+
+Use this command to scaffold an **event listener**.
+
+```bash
+bun run make:listener UserDeleted
+```
+
+This command will:
+
+- Create a listener in `src/listeners/`
+- Wire it to the specified event using the event bus
+- Leave the handler body intentionally blank
+- Avoid coupling listeners to jobs
+
+Generated example:
+
+```ts
+import { on } from '../events/event-bus'
+import { UserDeleted } from '../events/user-deleted'
+
+on(UserDeleted, event => {
+  //
+})
+```
+
+Listeners are automatically registered via `src/listeners/index.ts`.
+
+---
+
+### Queue utility commands
+
+The following commands help inspect and manage queues locally and in CI.
+
+#### queue:list
+
+```bash
+bun run queue:list
+```
+
+Lists all configured queues registered in the application.
+
+---
+
+#### queue:stats
+
+```bash
+bun run queue:stats
+bun run queue:stats emails
+```
+
+Shows job counts per queue:
+
+- waiting
+- active
+- delayed
+- completed
+- failed
+
+You may optionally filter by a single queue name.
+
+---
+
+#### queue:clear
+
+```bash
+bun run queue:clear emails
+```
+
+Clears all jobs from the given queue (waiting, active, delayed, completed, failed).
+
+This is useful for:
+- Local development
+- Test cleanup
+- Recovering from bad job payloads
 
 ---
 
