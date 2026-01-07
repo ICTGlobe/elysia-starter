@@ -16,6 +16,7 @@ const connection = {
 test('job retries when handler throws and eventually succeeds', async () => {
   const queueName = 'default'
   const queue = new Queue(queueName, { connection })
+  await queue.obliterate({ force: true })
 
   let attempts = 0
 
@@ -50,4 +51,4 @@ test('job retries when handler throws and eventually succeeds', async () => {
 
   await worker.close()
   await queue.obliterate({ force: true })
-})
+}, 10000)

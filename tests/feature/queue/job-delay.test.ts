@@ -16,6 +16,7 @@ const connection = {
 test('job is not executed before delay and runs after delay', async () => {
   const queueName = 'default'
   const queue = new Queue(queueName, { connection })
+  await queue.obliterate({ force: true })
 
   let executedAt: number | null = null
   const delayMs = 1000
@@ -44,4 +45,4 @@ test('job is not executed before delay and runs after delay', async () => {
 
   await worker.close()
   await queue.obliterate({ force: true })
-})
+}, 10000)

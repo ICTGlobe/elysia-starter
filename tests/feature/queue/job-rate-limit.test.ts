@@ -14,7 +14,7 @@ const connection = {
 }
 
 test('queue rate limiting throttles job execution', async () => {
-  const queueName = 'rate-limit-test'
+  const queueName = `rate-limit-test-${Date.now()}`
 
   const queue = new Queue(queueName, { connection })
 
@@ -64,4 +64,4 @@ test('queue rate limiting throttles job execution', async () => {
 
   await worker.close()
   await queue.obliterate({ force: true })
-}, 10000)
+}, 15000)

@@ -7,9 +7,12 @@ import { createQueueDashboard } from "./queue/dashboard";
 export const app = new Elysia({ precompile: true })  
   .use(swaggerPlugin)
   .use(corsPlugin)
-  .use(logPlugin)
   .use(setupErrorHandler)
   .get("/", ({ redirect }) => redirect("/swagger"));
+
+  if(process.env.LOGGING_ENABLED === 'true') {
+    app.use(logPlugin)
+  }  
 
   // Register Bull Queue Dashboard
   if (process.env.QUEUE_DASHBOARD_ENABLED === 'true') {

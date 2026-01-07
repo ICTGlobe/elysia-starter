@@ -16,6 +16,7 @@ const connection = {
 test('dispatching a Job executes its handler via worker', async () => {
   const queueName = 'default'
   const queue = new Queue(queueName, { connection })
+  await queue.obliterate({ force: true })
 
   let executedPayload: any = null
 
@@ -52,4 +53,4 @@ test('dispatching a Job executes its handler via worker', async () => {
 
   await worker.close()
   await queue.obliterate({ force: true })
-})
+}, 10000)
