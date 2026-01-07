@@ -21,6 +21,11 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
+    env:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: null
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -43,26 +48,13 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Wait for Redis
-        run: |
-          for i in {1..30}; do
-            if redis-cli -h 127.0.0.1 -p 6379 ping | grep -q PONG; then
-              echo "✅ Redis is ready"
-              exit 0
-            fi
-            echo "⏳ Waiting for Redis..."
-            sleep 1
-          done
-          echo "❌ Redis did not become ready in time"
-          exit 1
-
       - name: Setup environment variables
         run: |
           cp .env.example .env
           echo "JWT_SECRET=test-secret-key-for-github-actions" >> .env
           echo "JWT_MAX_AGE=86400" >> .env
           echo "DATABASE_URL=file:./test.db" >> .env
-          echo "REDIS_HOST=127.0.0.1" >> .env
+          echo "REDIS_HOST=redis" >> .env
           echo "REDIS_PORT=6379" >> .env
           echo "REDIS_PASSWORD=null" >> .env
 
