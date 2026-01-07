@@ -265,22 +265,37 @@ Once the server is running, visit `http://localhost:3000/swagger` to view the in
 
 ## 🏗️ Project Structure
 
+**Architecture Overview**
+
+This project follows an explicit, event‑driven architecture. HTTP controllers are intentionally thin and only validate input, call a single service, and emit domain events. Services contain all business logic and never trigger side effects directly. Events represent facts that already happened and are consumed by listeners, which orchestrate side effects such as dispatching background jobs or integrations. Jobs run asynchronously via BullMQ workers and remain isolated, reusable units. This separation keeps the system predictable, testable, and easy to evolve as complexity grows.
+
+
 ```
 src/
-├── controllers/          # API route handlers
-├── services/            # Business logic layer
-├── database/            # Database configuration
-├── drizzle/             # Database schema and migrations
-├── middleware/          # Custom middleware
-├── plugins/             # ElysiaJS plugins
-├── requests/            # Request validation schemas
-├── responses/           # Response type definitions
-├── errors/              # Custom error classes
-└── types/               # TypeScript type definitions
+├── app.ts                # App composition & plugin setup
+├── index.ts              # Application entry point
+├── routes.ts             # Route registration
+├── controllers/          # HTTP controllers (thin)
+├── services/             # Business logic
+├── events/               # Domain events (classes)
+├── listeners/            # Event listeners (side effects)
+├── jobs/                 # Background job classes
+├── queue/                # Queue config, workers, handlers
+├── cli/                  # CLI commands (make:*, queue:*)
+├── database/             # Database client & test DB
+├── drizzle/              # Schema, migrations, seeds
+├── middleware/           # Auth & request context
+├── plugins/              # Elysia plugins
+├── requests/             # Request validation schemas
+├── responses/            # Typed API responses
+├── errors/               # Custom error types
+├── types/                # Shared TypeScript types
+├── util.ts               # Shared utilities
+└── setup.ts              # App/bootstrap helpers
 
 tests/
-├── unit/                # Unit tests for services
-└── feature/             # Integration tests for API endpoints
+├── unit/                 # Service-level tests
+└── feature/              # API & integration tests
 ```
 
 ## 🤝 Contributing
