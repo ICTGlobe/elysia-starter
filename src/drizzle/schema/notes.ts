@@ -4,7 +4,7 @@ import {
   relations,
   sql,
 } from "drizzle-orm";
-import { index, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 import { createId } from "@paralleldrive/cuid2";
 import { teams } from "./teams";
