@@ -27,10 +27,7 @@ export const teams = sqliteTable(
     updatedAt: text("updated_at")
       .notNull()
       .default(sql`CURRENT_TIMESTAMP`),
-  },
-  (table) => [
-    index("idx_teams_owner_id").on(table.ownerId),
-  ]
+  }
 );
 
 export const teamRelations = relations(teams, ({ one, many }) => ({

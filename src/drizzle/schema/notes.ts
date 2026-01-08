@@ -31,10 +31,7 @@ export const notes = sqliteTable(
       .notNull()
       .default(sql`CURRENT_TIMESTAMP`),
   },
-  (table) => [
-    index("idx_notes_team_id").on(table.teamId),
-    index("idx_notes_author_id").on(table.authorId),
-  ]
+  () => []
 );
 
 export const notesRelations = relations(notes, ({ one }) => ({
