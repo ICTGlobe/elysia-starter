@@ -5,7 +5,10 @@ export const swaggerPlugin = (app: Elysia) =>
   app.use(
     swagger({
       path: "/swagger",
-      exclude: [/\/api\/v1\/admin/],
+      exclude: [
+        "/",
+        /\/api\/v1\/admin/
+      ],
       autoDarkMode: true,
       documentation: {
         info: {
