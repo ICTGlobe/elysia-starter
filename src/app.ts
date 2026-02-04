@@ -11,12 +11,12 @@ export const app = new Elysia({ precompile: true })
   .use(setupErrorHandler)
   .get("/", ({ redirect }) => redirect("/swagger"));
 
-  if(process.env.LOGGING_ENABLED === 'true') {
+  if(process.env.LOGGING_ENABLED) {
     app.use(logPlugin)
   }  
 
   // Register Bull Queue Dashboard
-  if (process.env.QUEUE_DASHBOARD_ENABLED === 'true') {
+  if (process.env.QUEUE_DASHBOARD_ENABLED) {
     app.use(createQueueDashboard())
   }
 
