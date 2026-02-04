@@ -1,4 +1,4 @@
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 import { NewUser, User, users } from "@/drizzle/schema/users";
 
